@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 public class UIManager : MonoBehaviour
 {
     #region PreGameFields
@@ -50,6 +52,7 @@ public class UIManager : MonoBehaviour
     {
         PreGamePanel.SetActive(false);
         GamePanel.SetActive(true);
+        SceneManager.LoadScene("Level_1", LoadSceneMode.Additive);
     }
 
     public void OnClickSettings() 
