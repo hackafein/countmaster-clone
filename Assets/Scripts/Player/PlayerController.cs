@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
 
     public void FormatPlayerClones()
     {
+        Debug.Log("5");
         for (int i = 1; i < player.childCount; i++)
         {
             var x = DistanceFactor * Mathf.Sqrt(i) * Mathf.Cos(i * Radius);
@@ -69,6 +70,7 @@ public class PlayerController : MonoBehaviour
 
     public void MakePlayerClone(int number)
     {
+        Debug.Log("4");
         for (int i = totalNumberOfPlayerClones; i < number; i++)
         {
             Instantiate(playerClone, transform.position, Quaternion.identity, transform);
@@ -85,13 +87,16 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Award")
         {
+     
+            other.GetComponent<BoxCollider>().enabled = false;
             Award award = other.GetComponent<Award>();
             other.GetComponent<Award>().DetectAward();
-            other.GetComponent<BoxCollider>().enabled = false;
+      
 
             Transform gate = other.transform.parent;
             gate.DOLocalMoveY(-0.5f, 0.57f).OnComplete(() => {
                 Destroy(gate.gameObject);
+
             });
         }
     }

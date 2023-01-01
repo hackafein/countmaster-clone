@@ -31,6 +31,7 @@ public class Award : MonoBehaviour
                 PlayerController.instance.MakePlayerClone(PlayerController.instance.numberOfPlayerClones + amount);
                 break;
             case AwardType.Multiply:
+            PlayerController.instance.MakePlayerClone(PlayerController.instance.numberOfPlayerClones * amount);
                 Debug.Log("Your Clones Multiplied!");
                 break;
         }
