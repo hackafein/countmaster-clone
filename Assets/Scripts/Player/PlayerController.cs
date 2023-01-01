@@ -12,13 +12,14 @@ public class PlayerController : MonoBehaviour
     public GameObject playerClone;
     public bool fightStarted = false;
     public Vector3 runTarget;
+    private Rigidbody playerRigidbody;
 
     public int numberOfPlayerClones;
     public int totalNumberOfPlayerClones;
-    // Start is called before the first frame update
-    public float speed = 10.0f;
-    private Rigidbody rb;
-    private float screenWidth;
+
+    public float speed = 0.5f;
+
+    public float swipeSpeed;
 
     private void Awake()
     {
@@ -26,55 +27,31 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
+        playerRigidbody = GetComponent<Rigidbody>();
         totalNumberOfPlayerClones = transform.childCount - 1;
         player = gameObject.transform;
-        rb = GetComponent<Rigidbody>();
 
-        // Calculate the width of the screen in world coordinates
-        float screenRatio = (float)Screen.width / (float)Screen.height;
-        float widthOrtho = Camera.main.orthographicSize * screenRatio;
-        screenWidth = widthOrtho * 2;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Vector3 position = transform.position;
-        position.z += speed * Time.deltaTime;
-
-        // Check if the player is touching the screen
-        if (Input.touchCount > 0)
-        {
-            // Get the first touch
-            Touch touch = Input.GetTouch(0);
-
-            // Set the target position for the player
-            Vector3 targetPosition = transform.position;
-            targetPosition.x += touch.deltaPosition.x * 500000f;
-
-            // Move the player towards the target position
-            rb.MovePosition(Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime));;
-        }
-
-
-        // Limit the player's position to the edges of the screen
-        float leftEdge = -screenWidth / 2;
-        float rightEdge = screenWidth / 2;
-        position.x = Mathf.Clamp(position.x, leftEdge, rightEdge);
-        transform.position = position;
-
         if (fightStarted)
         {
-            if(Enemy.instance.totalNumberEnemies == 0)
+            speed = 0;
+            if (Enemy.instance.totalNumberEnemies == 0)
             {
                 Debug.Log("You Won the Fight!");
                 fightStarted = false;
+                speed = 0.6f;
             }
-            else if(totalNumberOfPlayerClones == 0)
+
+            else if (totalNumberOfPlayerClones == 0)
             {
                 Debug.Log("You Lost!");
             }
         }
+
+        playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, playerRigidbody.velocity.y , speed);
     }
 
     public void FormatPlayerClones()
@@ -113,7 +90,7 @@ public class PlayerController : MonoBehaviour
             other.GetComponent<BoxCollider>().enabled = false;
 
             Transform gate = other.transform.parent;
-            gate.DOLocalMoveY(-0.5f, 0.57f).OnComplete(()=> {
+            gate.DOLocalMoveY(-0.5f, 0.57f).OnComplete(() => {
                 Destroy(gate.gameObject);
             });
         }

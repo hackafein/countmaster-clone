@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5926108329575642115}
   - component: {fileID: 5926108329575642113}
   - component: {fileID: 5926108329575642112}
+  - component: {fileID: 2701344635967299385}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -52,7 +53,8 @@ MonoBehaviour:
   runTarget: {x: 0, y: 0, z: 0}
   numberOfPlayerClones: 0
   totalNumberOfPlayerClones: 0
-  speed: 0.5
+  speed: 0.6
+  swipeSpeed: 0
 --- !u!54 &5926108329575642112
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -68,7 +70,21 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
+--- !u!114 &2701344635967299385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5926108329575642114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5895b58fae80df34e80ca7a8733ed3d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swiperStopTolerance: 0.02
+  endPointSpeed: 5
 --- !u!1 &6844536785745660085
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,7 +96,6 @@ GameObject:
   - component: {fileID: 6176543255782920719}
   - component: {fileID: 7068582995410132394}
   - component: {fileID: 5042995298865604960}
-  - component: {fileID: 5926108329900642797}
   - component: {fileID: 7912162723558005228}
   m_Layer: 0
   m_Name: Player_main
@@ -154,20 +169,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5926108329900642797
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6844536785745660085}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.013301513
-  m_Height: 0.095465586
-  m_Direction: 1
-  m_Center: {x: -0.00008669961, y: 0.00009108335, z: 0.001694411}
 --- !u!136 &7912162723558005228
 CapsuleCollider:
   m_ObjectHideFlags: 0
