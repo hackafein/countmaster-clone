@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject GameObjectPrefab;
+    public GameObject GAMEobjects;
     #region PreGameFields
     [Header("PreGameFields")]
     public GameObject PreGamePanel;
@@ -46,13 +48,14 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         PreGamePanel.SetActive(true);
+        PlayerController.instance.speed=0f;
     }
 
     public void OnClickGame() // OYUN BAŞLAMA EVENTI BURADA TETIKLENECEK
     {
         PreGamePanel.SetActive(false);
         GamePanel.SetActive(true);
-        SceneManager.LoadScene("Level_1", LoadSceneMode.Additive);
+        PlayerController.instance.speed=0.6f;
     }
 
     public void OnClickSettings() 
@@ -86,8 +89,13 @@ public class UIManager : MonoBehaviour
 
     public void OnClickTryAgainButton()
     {
+        Destroy(GAMEobjects);
+        GAMEobjects=Instantiate(GameObjectPrefab,new Vector3(100,0,0),Quaternion.identity);
+
         YouLosePanel.SetActive(false);
         GamePanel.SetActive(true);
+        PlayerController.instance.speed=0.6f;
+
     }
 
 }

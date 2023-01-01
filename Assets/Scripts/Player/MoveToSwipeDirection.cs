@@ -24,7 +24,7 @@ public class MoveToSwipeDirection : MonoBehaviour
     {
         velocity = rb.velocity;
 
-        if (!PlayerController.instance.fightStarted)
+        if (!PlayerController.instance.fightStarted && PlayerController.instance.speed!=0f)
         {
             velocity.x = CalculateDirection().x * 20;
         }

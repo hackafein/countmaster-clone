@@ -18,7 +18,20 @@ public class Obstacle : MonoBehaviour
         {
             if(PlayerController.instance.totalNumberOfPlayerClones == 0)
             {
+                PlayerController.instance.speed=0f;
                 Debug.Log("You Lost!");
+                UIManager.instance.OnFailedGame();
+            }
+        }
+    }
+    private void OnTriggerStay(Collider other){
+       if(other.tag == "Player")
+        {
+            if(PlayerController.instance.totalNumberOfPlayerClones == 0)
+            {
+                PlayerController.instance.speed=0f;
+                Debug.Log("You Lost!");
+                UIManager.instance.OnFailedGame();
             }
         }
     }
