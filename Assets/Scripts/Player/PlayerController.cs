@@ -10,10 +10,11 @@ public class PlayerController : MonoBehaviour
     private float DistanceFactor = 0.02f;
     private float Radius = 0.5f;
     public GameObject playerClone;
-    public bool run = false;
+    public bool fightStarted = false;
     public Vector3 runTarget;
 
     public int numberOfPlayerClones;
+    public int totalNumberOfPlayerClones;
     // Start is called before the first frame update
 
     private void Awake()
@@ -22,20 +23,23 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
-        numberOfPlayerClones = transform.childCount - 1;
+        totalNumberOfPlayerClones = transform.childCount - 1;
         player = gameObject.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (run)
+        if (fightStarted)
         {
             if(Enemy.instance.totalNumberEnemies == 0)
             {
                 Debug.Log("You Won the Fight!");
-                run = false;
-                Destroy(Enemy.instance.gameObject);
+                fightStarted = false;
+            }
+            else if(totalNumberOfPlayerClones == 0)
+            {
+                Debug.Log("You Lost!");
             }
         }
     }
@@ -55,12 +59,14 @@ public class PlayerController : MonoBehaviour
 
     public void MakePlayerClone(int number)
     {
-        for (int i = numberOfPlayerClones; i < number; i++)
+        for (int i = totalNumberOfPlayerClones; i < number; i++)
         {
             Instantiate(playerClone, transform.position, Quaternion.identity, transform);
         }
 
-        numberOfPlayerClones = transform.childCount - 1;
+        //numberOfPlayerClones = transform.childCount - 1;
+        totalNumberOfPlayerClones = transform.childCount - 1;
+
         //CounterTxt.text = numberOfStickmans.ToString();
         FormatPlayerClones();
     }
@@ -69,10 +75,14 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Award")
         {
-            Debug.Log("awarddddd");
             Award award = other.GetComponent<Award>();
             other.GetComponent<Award>().DetectAward();
             other.GetComponent<BoxCollider>().enabled = false;
+
+            Transform gate = other.transform.parent;
+            gate.DOLocalMoveY(-0.5f, 0.57f).OnComplete(()=> {
+                Destroy(gate.gameObject);
+            });
         }
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerStartRunning : MonoBehaviour
 {
-    
 
+    public bool run = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,10 +14,10 @@ public class PlayerStartRunning : MonoBehaviour
 
     void Update()
     {
-        if (PlayerController.instance.run)
+        if (run)
         {
-            if (Vector3.Distance(transform.position, PlayerController.instance.runTarget) > 0.02f)
-                transform.position = Vector3.MoveTowards(transform.position, PlayerController.instance.runTarget, Time.deltaTime);
+            if (Vector3.Distance(transform.position, PlayerController.instance.runTarget) > 0)
+                transform.position = Vector3.MoveTowards(transform.position, PlayerController.instance.runTarget, Time.deltaTime / 3);
         }
     }
 

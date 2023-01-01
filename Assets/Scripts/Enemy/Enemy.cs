@@ -9,11 +9,12 @@ public class Enemy : MonoBehaviour
     public GameObject enemyClone;
     public Vector3 runTarget;
     private int numberOfEnemyClones;
-    [SerializeField] private int cloneAmount;
+    public int cloneAmount;
     private float DistanceFactor = 0.02f;
     private float Radius = 0.5f;
     private bool checkTrigger = true;
     public bool run = false;
+    public int FighterIndex = 0;
 
     public int totalNumberEnemies;
 
@@ -25,7 +26,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         MakeEnemyClone(cloneAmount);
-        totalNumberEnemies = cloneAmount + 1;
+        totalNumberEnemies = cloneAmount;
     }
 
     // Update is called once per frame
@@ -62,14 +63,16 @@ public class Enemy : MonoBehaviour
     {
         if (checkTrigger)
         {
-            if (other.tag == "PlayerClone" || other.tag == "Player")
+            if (other.tag == "PlayerClone")
             {
                 PlayerController.instance.runTarget = other.transform.position;
                 runTarget = other.transform.position;
                 checkTrigger = false;
-                run = true;
-                PlayerController.instance.run = true;
+                transform.GetChild(0).GetComponent<EnemyStartRunning>().run = true;
+                other.transform.parent.GetChild(1).GetComponent<PlayerStartRunning>().run = true;
+                PlayerController.instance.fightStarted = true;
             }
+
         }
     }
 }
