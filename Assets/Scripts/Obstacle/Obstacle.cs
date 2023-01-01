@@ -8,8 +8,10 @@ public class Obstacle : MonoBehaviour
     {
         if(other.tag == "PlayerClone")
         {
+            Debug.Log("ÇARPTI YOK ETTIM");
             Destroy(other.gameObject);
             PlayerController.instance.totalNumberOfPlayerClones -= 1;
+            Debug.Log("TOTAL ADAM "+PlayerController.instance.totalNumberOfPlayerClones );
             PlayerController.instance.FormatPlayerClones();
         }
         else if(other.tag == "Player")
