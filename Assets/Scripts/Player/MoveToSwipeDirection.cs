@@ -23,8 +23,17 @@ public class MoveToSwipeDirection : MonoBehaviour
     private void Update()
     {
         velocity = rb.velocity;
-        Debug.Log(CalculateDirection());
-        velocity.x = CalculateDirection().x * 20;
+
+        if (!PlayerController.instance.fightStarted)
+        {
+            velocity.x = CalculateDirection().x * 20;
+        }
+
+        else
+        {
+            velocity.x = 0;
+        }
+
         rb.velocity = velocity;
     }
 

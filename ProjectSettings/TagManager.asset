@@ -8,6 +8,7 @@ TagManager:
   - PlayerClone
   - EnemyClone
   - Enemy
+  - Ramp
   layers:
   - Default
   - TransparentFX

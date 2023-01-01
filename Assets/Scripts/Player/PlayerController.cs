@@ -19,8 +19,6 @@ public class PlayerController : MonoBehaviour
 
     public float speed = 0.5f;
 
-    public float swipeSpeed;
-
     private void Awake()
     {
         instance = this;
